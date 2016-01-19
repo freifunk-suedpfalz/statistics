@@ -63,7 +63,7 @@ def create_series(jsondata):
                 pointValues = {}
                 pointValues['fields'] = {}
                 pointValues['tags'] = {}
-                pointValues['time'] = now 
+                pointValues['time'] = now
                 pointValues['measurement'] = metric
                 pointValues['fields']['value'] = float(data[metric])
                 pointValues['tags']['mac'] = mac
@@ -76,6 +76,56 @@ def create_series(jsondata):
                     pointValues['tags']['nodeid'] = jsondata['nodes'][node]['nodeinfo']['node_id']
                 except:
                     pass
+                #************************************************************************************
+                try:
+                    pointValues['tags']['site_code'] = jsondata['nodes'][node]['nodeinfo']['system']['site_code']
+                except:
+                    pass
+                try:
+                    pointValues['tags']['batman_compat'] = jsondata['nodes'][node]['nodeinfo']['software']['batman-adv']['compat']
+                except:
+                    pass
+                try:
+                    pointValues['tags']['batman_version'] = jsondata['nodes'][node]['nodeinfo']['software']['batman-adv']['version']
+                except:
+                    pass
+                try:
+                    pointValues['tags']['autoupdater_enabled'] = jsondata['nodes'][node]['nodeinfo']['software']['autoupdater']['enabled']
+                except:
+                    pass
+                try:
+                    pointValues['tags']['autoupdater_branch'] = jsondata['nodes'][node]['nodeinfo']['software']['autoupdater']['branch']
+                except:
+                    pass
+                try:
+                    pointValues['tags']['fastd_enableed'] = jsondata['nodes'][node]['nodeinfo']['software']['fastd']['enabled']
+                except:
+                    pass
+                try:
+                    pointValues['tags']['fastd_version'] = jsondata['nodes'][node]['nodeinfo']['software']['fastd']['version']
+                except:
+                    pass
+                try:
+                    pointValues['tags']['firmware_base'] = jsondata['nodes'][node]['nodeinfo']['software']['firmware']['base']
+                except:
+                    pass
+                try:
+                    pointValues['tags']['firmware_release'] = jsondata['nodes'][node]['nodeinfo']['software']['firmware']['release']
+                except:
+                    pass
+                try:
+                    pointValues['tags']['hardware_model'] = jsondata['nodes'][node]['nodeinfo']['hardware']['model']
+                except:
+                    pass
+                try:
+                    pointValues['tags']['hardware_nproc'] = jsondata['nodes'][node]['nodeinfo']['hardware']['nproc']
+                except:
+                    pass
+                try:
+                    pointValues['tags']['owner_contact'] = jsondata['nodes'][node]['nodeinfo']['owner']['contact']
+                except:
+                    pass
+                #*************************************************************************************
                 series.append(pointValues)
             except KeyError:
                 pass
@@ -102,7 +152,56 @@ def create_series(jsondata):
                         pointValues['tags']['nodeid'] = jsondata['nodes'][node]['nodeinfo']['node_id']
                     except:
                         pass
-
+                    #************************************************************************************
+                    try:
+                        pointValues['tags']['site_code'] = jsondata['nodes'][node]['nodeinfo']['system']['site_code']
+                    except:
+                        pass
+                    try:
+                        pointValues['tags']['batman_compat'] = jsondata['nodes'][node]['nodeinfo']['software']['batman-adv']['compat']
+                    except:
+                        pass
+                    try:
+                        pointValues['tags']['batman_version'] = jsondata['nodes'][node]['nodeinfo']['software']['batman-adv']['version']
+                    except:
+                        pass
+                    try:
+                        pointValues['tags']['autoupdater_enabled'] = jsondata['nodes'][node]['nodeinfo']['software']['autoupdater']['enabled']
+                    except:
+                        pass
+                    try:
+                        pointValues['tags']['autoupdater_branch'] = jsondata['nodes'][node]['nodeinfo']['software']['autoupdater']['branch']
+                    except:
+                        pass
+                    try:
+                        pointValues['tags']['fastd_enableed'] = jsondata['nodes'][node]['nodeinfo']['software']['fastd']['enabled']
+                    except:
+                        pass
+                    try:
+                        pointValues['tags']['fastd_version'] = jsondata['nodes'][node]['nodeinfo']['software']['fastd']['version']
+                    except:
+                        pass
+                    try:
+                        pointValues['tags']['firmware_base'] = jsondata['nodes'][node]['nodeinfo']['software']['firmware']['base']
+                    except:
+                        pass
+                    try:
+                        pointValues['tags']['firmware_release'] = jsondata['nodes'][node]['nodeinfo']['software']['firmware']['release']
+                    except:
+                        pass
+                    try:
+                        pointValues['tags']['hardware_model'] = jsondata['nodes'][node]['nodeinfo']['hardware']['model']
+                    except:
+                        pass
+                    try:
+                        pointValues['tags']['hardware_nproc'] = jsondata['nodes'][node]['nodeinfo']['hardware']['nproc']
+                    except:
+                        pass
+                    try:
+                        pointValues['tags']['owner_contact'] = jsondata['nodes'][node]['nodeinfo']['owner']['contact']
+                    except:
+                        pass
+                    #*************************************************************************************
                     series.append(pointValues)
         except KeyError:
             pass
@@ -128,5 +227,3 @@ def parse_args():
 if __name__ == '__main__':
     args = parse_args()
     main(hostname=args.hostname, port=args.port, file=args.file, username=args.username, password=args.password, database=args.database)
-
-
