@@ -125,6 +125,10 @@ def create_series(jsondata):
                     pointValues['tags']['owner_contact'] = jsondata['nodes'][node]['nodeinfo']['owner']['contact']
                 except:
                     pass
+                try:
+                    pointValues['tags']['online'] = jsondata['nodes'][node]['flags']['online']
+                except:
+                    pass
                 #*************************************************************************************
                 series.append(pointValues)
             except KeyError:
@@ -199,6 +203,10 @@ def create_series(jsondata):
                         pass
                     try:
                         pointValues['tags']['owner_contact'] = jsondata['nodes'][node]['nodeinfo']['owner']['contact']
+                    except:
+                        pass
+                    try:
+                        pointValues['tags']['online'] = jsondata['nodes'][node]['flags']['online']
                     except:
                         pass
                     #*************************************************************************************
