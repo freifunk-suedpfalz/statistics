@@ -56,7 +56,28 @@ def create_series(jsondata):
                 data[key] = jsondata['nodes'][node]['statistics'][key]
             except KeyError:
                 pass
-
+        #Create series online
+        try:
+            pointValues = {}
+            pointValues['fields'] = {}
+            pointValues['tags'] = {}
+            pointValues['time'] = now
+            pointValues['measurement'] = 'online'
+            pointValues['fields']['value'] = jsondata['nodes'][node]['flags']['online']
+            pointValues['tags']['mac'] = mac
+            #Append additional tags if existing
+            try:
+                pointValues['tags']['hostname'] = jsondata['nodes'][node]['nodeinfo']['hostname']
+            except:
+                pass
+            try:
+                pointValues['tags']['nodeid'] = jsondata['nodes'][node]['nodeinfo']['node_id']
+            except:
+                pass
+            series.append(pointValues)
+        except KeyError:
+            pass
+        
         #Create series for idletime, loadavg, rootfs_usage and uptime
         for metric in ['loadavg','rootfs_usage','uptime']:
             try:
